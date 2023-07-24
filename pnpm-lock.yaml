@@ -60,8 +60,8 @@ dependencies:
     specifier: ^8.3.2
     version: 8.3.2
   pino-pretty:
-    specifier: ^10.0.0
-    version: 10.0.0
+    specifier: ^10.1.0
+    version: 10.1.0
   reflect-metadata:
     specifier: ^0.1.13
     version: 0.1.13
@@ -571,8 +571,8 @@ packages:
     resolution: {integrity: sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==}
     dev: true
 
-  /@binochoi/eslint-config-typescript@0.0.10(@typescript-eslint/eslint-plugin@5.59.2)(eslint-config-airbnb-base@15.0.0)(eslint-plugin-import@2.27.5):
-    resolution: {integrity: sha512-7zimSEL3MkR7sTMrZFISCoyp18agj/n5Q+vE9xHRSxP3MlytiYpuFLCaVQh56OjKqecUqulVVs9JSouj/YwccA==}
+  /@binochoi/eslint-config-typescript@0.0.11(@typescript-eslint/eslint-plugin@5.59.2)(eslint-config-airbnb-base@15.0.0)(eslint-plugin-import@2.27.5):
+    resolution: {integrity: sha512-caIgfEcywi8jAXRClzfJ6HVUoulJZnBc9vA5wai5hFssO+SxYU6NhUxTcX4mB2LeAJxDckgDDKYG3dblXTShow==}
     peerDependencies:
       '@typescript-eslint/eslint-plugin': ^5.62.0
       eslint-config-airbnb-base: ^15.0.0
@@ -583,8 +583,8 @@ packages:
       eslint-plugin-import: 2.27.5(@typescript-eslint/parser@5.59.2)(eslint@8.45.0)
     dev: false
 
-  /@binochoi/tsconfig@0.0.5:
-    resolution: {integrity: sha512-l1s5flZUEUvvH8WR1wqBfmYJZAGZzrDlXEh7Ru3OhV5VxL98XvxT9kEQA7ksYGp33yxEvJOQN1RwIsrNtn2l8w==}
+  /@binochoi/tsconfig@0.0.6:
+    resolution: {integrity: sha512-oa0LD5/HV5ucQhRfkZYUGwiOvmpYraLS8y2yBOifgFEpsqMRswMr5/6KbkXYvQxuVNaw2nLp4fob+hvn+y9ouA==}
     engines: {node: '>=18'}
     dev: false
 
@@ -4626,8 +4626,8 @@ packages:
       process-warning: 2.2.0
     dev: false
 
-  /pino-pretty@10.0.0:
-    resolution: {integrity: sha512-zKFjYXBzLaLTEAN1ayKpHXtL5UeRQC7R3lvhKe7fWs7hIVEjKGG/qIXwQt9HmeUp71ogUd/YcW+LmMwRp4KT6Q==}
+  /pino-pretty@10.1.0:
+    resolution: {integrity: sha512-9gAgVHCVTEq0ThcjoXkOICYQgdqh1h90WSuVAnNeCrRrefJInUvMbpDfy6PlsI29Nbu9UW9CGkUHztrR1A9N+A==}
     hasBin: true
     dependencies:
       colorette: 2.0.20
