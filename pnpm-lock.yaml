@@ -30,14 +30,14 @@ dependencies:
     specifier: ^9.4.3
     version: 9.4.3(class-transformer@0.5.1)(class-validator@0.14.0)(reflect-metadata@0.1.13)(rxjs@7.8.1)
   '@nestjs/core':
-    specifier: ^9.4.3
-    version: 9.4.3(@nestjs/common@9.4.3)(reflect-metadata@0.1.13)(rxjs@7.8.1)
+    specifier: ^10.0.0
+    version: 10.2.1(@nestjs/common@9.4.3)(reflect-metadata@0.1.13)(rxjs@7.8.1)
   '@nestjs/passport':
     specifier: ^9.0.3
     version: 9.0.3(@nestjs/common@9.4.3)(passport@0.6.0)
   '@nestjs/platform-fastify':
     specifier: ^10.2.1
-    version: 10.2.1(@nestjs/common@9.4.3)(@nestjs/core@9.4.3)
+    version: 10.2.1(@nestjs/common@9.4.3)(@nestjs/core@10.2.1)
   class-transformer:
     specifier: ^0.5.1
     version: 0.5.1
@@ -75,7 +75,7 @@ devDependencies:
     version: 9.2.0(typescript@5.2.2)
   '@nestjs/testing':
     specifier: ^9.4.3
-    version: 9.4.3(@nestjs/common@9.4.3)(@nestjs/core@9.4.3)
+    version: 9.4.3(@nestjs/common@9.4.3)(@nestjs/core@10.2.1)
   '@types/express':
     specifier: ^4.17.17
     version: 4.17.17
@@ -1088,14 +1088,14 @@ packages:
       tslib: 2.5.3
       uid: 2.0.2
 
-  /@nestjs/core@9.4.3(@nestjs/common@9.4.3)(reflect-metadata@0.1.13)(rxjs@7.8.1):
-    resolution: {integrity: sha512-Qi63+wi55Jh4sDyaj5Hhx2jOpKqT386aeo+VOKsxnd+Ql9VvkO/FjmuwBGUyzkJt29ENYc+P0Sx/k5LtstNpPQ==}
+  /@nestjs/core@10.2.1(@nestjs/common@9.4.3)(reflect-metadata@0.1.13)(rxjs@7.8.1):
+    resolution: {integrity: sha512-oH1jmCrVUkBkbeiEzAaYZ5unddn5bW/Id15pPGblYeLGAmfjXW9+G5VCffoGpO1DxBZdZu5/qcXTYyCR6rgXTg==}
     requiresBuild: true
     peerDependencies:
-      '@nestjs/common': ^9.0.0
-      '@nestjs/microservices': ^9.0.0
-      '@nestjs/platform-express': ^9.0.0
-      '@nestjs/websockets': ^9.0.0
+      '@nestjs/common': ^10.0.0
+      '@nestjs/microservices': ^10.0.0
+      '@nestjs/platform-express': ^10.0.0
+      '@nestjs/websockets': ^10.0.0
       reflect-metadata: ^0.1.12
       rxjs: ^7.1.0
     peerDependenciesMeta:
@@ -1113,7 +1113,7 @@ packages:
       path-to-regexp: 3.2.0
       reflect-metadata: 0.1.13
       rxjs: 7.8.1
-      tslib: 2.5.3
+      tslib: 2.6.1
       uid: 2.0.2
     transitivePeerDependencies:
       - encoding
@@ -1128,7 +1128,7 @@ packages:
       passport: 0.6.0
     dev: false
 
-  /@nestjs/platform-fastify@10.2.1(@nestjs/common@9.4.3)(@nestjs/core@9.4.3):
+  /@nestjs/platform-fastify@10.2.1(@nestjs/common@9.4.3)(@nestjs/core@10.2.1):
     resolution: {integrity: sha512-ROY2K5Rl1ADYAx8JfOwZDNXrS0TYOCFmWUx9lhfgpUV7ppWfMrA1tV0Kjo+SDSwMpExXbLcNRwVzNCsLTqH/Lg==}
     peerDependencies:
       '@fastify/static': ^6.0.0
@@ -1145,7 +1145,7 @@ packages:
       '@fastify/formbody': 7.4.0
       '@fastify/middie': 8.3.0
       '@nestjs/common': 9.4.3(class-transformer@0.5.1)(class-validator@0.14.0)(reflect-metadata@0.1.13)(rxjs@7.8.1)
-      '@nestjs/core': 9.4.3(@nestjs/common@9.4.3)(reflect-metadata@0.1.13)(rxjs@7.8.1)
+      '@nestjs/core': 10.2.1(@nestjs/common@9.4.3)(reflect-metadata@0.1.13)(rxjs@7.8.1)
       fastify: 4.21.0
       light-my-request: 5.10.0
       path-to-regexp: 3.2.0
@@ -1183,7 +1183,7 @@ packages:
       - chokidar
     dev: true
 
-  /@nestjs/testing@9.4.3(@nestjs/common@9.4.3)(@nestjs/core@9.4.3):
+  /@nestjs/testing@9.4.3(@nestjs/common@9.4.3)(@nestjs/core@10.2.1):
     resolution: {integrity: sha512-LDT8Ai2eKnTzvnPaJwWOK03qTaFap5uHHsJCv6dL0uKWk6hyF9jms8DjyVaGsaujCaXDG8izl1mDEER0OmxaZA==}
     peerDependencies:
       '@nestjs/common': ^9.0.0
@@ -1197,7 +1197,7 @@ packages:
         optional: true
     dependencies:
       '@nestjs/common': 9.4.3(class-transformer@0.5.1)(class-validator@0.14.0)(reflect-metadata@0.1.13)(rxjs@7.8.1)
-      '@nestjs/core': 9.4.3(@nestjs/common@9.4.3)(reflect-metadata@0.1.13)(rxjs@7.8.1)
+      '@nestjs/core': 10.2.1(@nestjs/common@9.4.3)(reflect-metadata@0.1.13)(rxjs@7.8.1)
       tslib: 2.5.3
     dev: true
 
@@ -5511,7 +5511,6 @@ packages:
 
   /tslib@2.6.1:
     resolution: {integrity: sha512-t0hLfiEKfMUoqhG+U1oid7Pva4bbDPHYfJNiB7BiIjRkj1pyC++4N3huJfqY6aRH6VTB0rvtzQwjM4K6qpfOig==}
-    dev: false
 
   /tslib@2.6.2:
     resolution: {integrity: sha512-AEYxH93jGFPn/a2iVAwW87VuUIkR1FVUKB77NwMF7nBTDkDrrT/Hpt/IrCJ0QXhW27jTBDcf5ZY7w6RiqTMw2Q==}
