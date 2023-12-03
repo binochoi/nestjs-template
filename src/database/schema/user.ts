@@ -21,7 +21,7 @@ export const usersDetail = pgTable('users_detail', {
   phoneNumber: varchar('phone_number', {
     length: schema.phoneNumber.max,
   }).notNull(),
-  signUpDate: timestamp('sign_up_date', { precision: 0 }).notNull(),
+  signUpDate: timestamp('sign_up_date').notNull(),
   socialProvider: smallint('social_provider').$type<SocialProvider>(),
 });
 
