@@ -7,9 +7,11 @@ import helmet from '@fastify/helmet';
 import cors from '@fastify/cors';
 import rateLimit from '@fastify/rate-limit';
 import compressor from '@fastify/compress';
-import { Logger, ValidationPipe } from '@nestjs/common';
+import { Logger, ValidationPipe, VersioningType } from '@nestjs/common';
 import fastifyCookie from '@fastify/cookie';
 import { FastifyInstance } from 'fastify';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { writeFileSync } from 'fs';
 import { AppModule } from './app.module';
 import { Config } from './config';
 import { AllExceptionsFilter } from './filters/all-exceptions.filter';
@@ -53,6 +55,18 @@ const createNestServer = async () => {
     }),
   );
 
+  const apiConfig = new DocumentBuilder()
+    .setTitle('API documentation')
+    .setVersion('1.0')
+    .addTag(config.appName)
+    .build();
+  const document = SwaggerModule.createDocument(app, apiConfig);
+  writeFileSync('./swagger.json', JSON.stringify(document));
+  SwaggerModule.setup('api', app, document);
+  app.enableVersioning({
+    type: VersioningType.HEADER,
+    header: 'Ver',
+  });
   if (isDev) {
     app.useGlobalFilters(new AllExceptionsFilter(httpAdapter));
   }

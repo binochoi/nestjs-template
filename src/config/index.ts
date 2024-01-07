@@ -4,6 +4,8 @@ import {
 } from 'class-validator';
 
 export class Config {
+  public readonly appName = 'nestjs-boilerplate';
+
   @IsString()
   public readonly host: string = '0.0.0.0';
 

@@ -3,6 +3,8 @@
 dist
 node_modules/
 
+swagger.json
+
 yarn-debug.log*
 yarn-error.log*
 
