@@ -4,28 +4,28 @@ import {
 } from '@app/global/entities/User';
 
 export class UserEntity implements User {
-    signUpDate: Date;
+  signUpDate: Date;
 
-    id: number;
+  id: number;
 
-    @IsString()
+  @IsString()
     userId: string;
 
-    @IsString()
+  @IsString()
     nickname: string;
 
-    @IsString()
+  @IsString()
     name: string;
 
-    @IsIn(Object.values(role))
+  @IsIn(Object.values(role))
     role: RoleValue;
 
-    @IsString()
+  @IsString()
     phoneNumber: string;
 
-    @IsString()
+  @IsString()
     password: string;
 
-    @IsIn(Object.values(socialProvider))
+  @IsIn(Object.values(socialProvider))
     socialProvider: SocialProvider;
 }

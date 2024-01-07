@@ -2,9 +2,9 @@
 import type { Session } from '../entities/Session';
 
 export namespace GetOne {
-    export type Response = Session;
+  export type Response = Session;
 }
 export namespace InsertOne {
-    export type Request = Omit<Session, 'id' | 'expires'>;
-    export type Response = Pick<Session, 'id'>;
+  export type Request = Omit<Session, 'id' | 'expires'>;
+  export type Response = Pick<Session, 'id'>;
 }

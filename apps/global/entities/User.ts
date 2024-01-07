@@ -18,15 +18,15 @@ export const socialProvider = {
 } satisfies Record<SocialProviderKey, SocialProviderValue>;
 
 export interface User {
-    id: number;
-    userId: string;
-    nickname: string;
-    name: string;
-    role: Role;
-    phoneNumber: string;
-    signUpDate: Date;
-    socialProvider: SocialProvider | null;
-    password: string;
+  id: number;
+  userId: string;
+  nickname: string;
+  name: string;
+  role: Role;
+  phoneNumber: string;
+  signUpDate: Date;
+  socialProvider: SocialProvider | null;
+  password: string;
 }
 
 export const schema = {

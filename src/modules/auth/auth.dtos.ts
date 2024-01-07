@@ -2,9 +2,9 @@ import { IsString } from 'class-validator';
 import * as API from '@app/global/APIs/auth.api';
 
 export class SignInDto implements API.SignIn.Request {
-    @IsString()
+  @IsString()
     userId: string;
 
-    @IsString()
+  @IsString()
     password: string;
 }

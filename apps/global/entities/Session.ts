@@ -1,10 +1,10 @@
 import { Role, schema as userSchema } from './User';
 
 export interface Session {
-    id: number;
-    userId: string;
-    role: Role;
-    expires: Date;
+  id: number;
+  userId: string;
+  role: Role;
+  expires: Date;
 }
 
 export const schema = {
