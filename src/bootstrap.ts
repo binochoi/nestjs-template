@@ -9,6 +9,7 @@ import rateLimit from '@fastify/rate-limit';
 import compressor from '@fastify/compress';
 import { Logger, ValidationPipe } from '@nestjs/common';
 import fastifyCookie from '@fastify/cookie';
+import { FastifyInstance } from 'fastify';
 import { AppModule } from './app.module';
 import { Config } from './config';
 import { AllExceptionsFilter } from './filters/all-exceptions.filter';
@@ -23,7 +24,7 @@ const createNestServer = async () => {
     }),
   );
   const { httpAdapter } = app.get(HttpAdapterHost);
-  const fastify = httpAdapter.getInstance();
+  const fastify = httpAdapter.getInstance<FastifyInstance>();
   const config = app.get(Config);
   const { isDev, isProd } = config;
   await fastify.register(helmet);
