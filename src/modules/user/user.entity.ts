@@ -5,6 +5,7 @@ import {
 
 export class UserEntity implements User {
     signUpDate: Date;
+
     id: number;
 
     @IsString()
