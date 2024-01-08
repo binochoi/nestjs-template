@@ -1,0 +1,11 @@
+const role = {
+  PREMIUM: 5,
+  VERIFIED: 1,
+  NEWBIE: 0,
+} as const;
+export type RoleKey = keyof typeof role;
+export type RoleValue = (typeof role)[keyof typeof role];
+export type Role = RoleValue;
+export {
+  role,
+};

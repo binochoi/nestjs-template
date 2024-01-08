@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  db:
+    container_name: db
+    image: postgres:16
+    restart: always
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "5432:5432"
+    env_file:
+      - ./.env
+    volumes:
+      - .cache/.postgresql:/var/lib/postgresql
+    networks:
+      - app-net
+  nestjs:
+    container_name: nestjs
+    build:
+      dockerfile: ./ci/Dockerfile.dev
+    ports:
+      - "${PORT}:${PORT}"
+      - "${DEBUG_PORT}:${DEBUG_PORT}"
+      - "3300:3300"
+    volumes:
+      - ./:/server
+      - ${GCP_KEY_PATH}:/personal/gcp-key.json
+    env_file:
+      - ./.env
+    depends_on:
+      - db
+    command: pnpm dev:entrypoint
+    networks:
+      - app-net
+
+networks:
+  app-net:
+    external: true
