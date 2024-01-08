@@ -1,13 +1,11 @@
 import type { Config } from 'drizzle-kit';
-import * as dotenv from 'dotenv';
 
-dotenv.config();
 const {
-  DB_HOST,
-  DB_PORT,
-  DB_USER,
-  DB_PASSWORD,
+  DB_HOST: host = 'localhost',
+  DB_USER: user,
+  DB_PASSWORD: password,
   DB_NAME,
+  DB_PORT,
 } = process.env;
 
 export default {
@@ -16,10 +14,10 @@ export default {
   breakpoints: true,
   driver: 'pg',
   dbCredentials: {
-    user: DB_USER,
-    password: DB_PASSWORD,
+    user,
+    password,
+    host,
     database: DB_NAME || '',
-    host: DB_HOST || 'localhost',
     port: Number(DB_PORT) || 0,
   },
 } satisfies Config;

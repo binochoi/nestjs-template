@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   db:
-    container_name: db
+    container_name: ${DB_HOST}
     image: postgres:16
     restart: always
     environment:
@@ -10,7 +10,7 @@ services:
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
     ports:
-      - "5432:5432"
+      - "${DB_PORT}:${DB_PORT}"
     env_file:
       - ./.env
     volumes:
@@ -24,7 +24,7 @@ services:
     ports:
       - "${PORT}:${PORT}"
       - "${DEBUG_PORT}:${DEBUG_PORT}"
-      - "3300:3300"
+      - "${DB_STUDIO_PORT}:${DB_STUDIO_PORT}"
     volumes:
       - ./:/server
       - ${GCP_KEY_PATH}:/personal/gcp-key.json
