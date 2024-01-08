@@ -23,7 +23,7 @@ services:
       dockerfile: ./ci/Dockerfile.dev
     ports:
       - "${PORT}:${PORT}"
-      - "${DEBUG_PORT}:${DEBUG_PORT}"
+      - "9229:9229"
       - "${DB_STUDIO_PORT}:${DB_STUDIO_PORT}"
     volumes:
       - ./:/server
