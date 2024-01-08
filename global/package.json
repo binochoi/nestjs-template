@@ -20,7 +20,7 @@
     "type-fest": "^4.6.0"
   },
   "devDependencies": {
-    "@binochoi/eslint-config-typescript": "^0.0.12",
+    "@binochoi/eslint-config-typescript": "^0.0.24",
     "@typescript-eslint/parser": "^5.62.0"
   }
 }
