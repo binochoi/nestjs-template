@@ -204,9 +204,6 @@ importers:
       drizzle-orm:
         specifier: ^0.28.6
         version: 0.28.6(@types/pg@8.10.9)(pg@8.11.3)
-      nestjs-mapped-types:
-        specifier: ^3.0.5
-        version: 3.0.5(class-transformer@0.5.1)(class-validator@0.14.0)(reflect-metadata@0.1.14)
       pg:
         specifier: ^8.11.3
         version: 8.11.3
@@ -6359,23 +6356,6 @@ packages:
     transitivePeerDependencies:
       - axios
       - supports-color
-    dev: false
-
-  /nestjs-mapped-types@3.0.5(class-transformer@0.5.1)(class-validator@0.14.0)(reflect-metadata@0.1.14):
-    resolution: {integrity: sha512-6qMxpWvz1+Q+QXYbdxVlgb1aq5Z16QLHCgWaM3cbQU3aU0A4qvsKHVsCMzkSCAdaq6MmhKXn9so4iNdnqNTJYw==}
-    peerDependencies:
-      class-transformer: ^0.4.0 || ^0.5.0
-      class-validator: ^0.13.0 || ^0.14.0
-      reflect-metadata: ^0.1.12
-    peerDependenciesMeta:
-      class-transformer:
-        optional: true
-      class-validator:
-        optional: true
-    dependencies:
-      class-transformer: 0.5.1
-      class-validator: 0.14.0
-      reflect-metadata: 0.1.14
     dev: false
 
   /next-tick@1.1.0:
