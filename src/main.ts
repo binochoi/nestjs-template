@@ -16,7 +16,7 @@ import { AppModule } from './app.module';
 import { Config } from './config';
 import { AllExceptionsFilter } from './filters/all-exceptions.filter';
 
-const bootstrap = async () => {
+const boot = async () => {
   const app = await NestFactory.create<NestFastifyApplication>(
     AppModule,
     new FastifyAdapter({
@@ -72,7 +72,7 @@ const bootstrap = async () => {
   }
   const logger = new Logger('Bootstrap');
   const { host, port } = config;
-  const boot = async () => {
+  const listen = async () => {
     await app.listen(port, host);
     if (isDev) {
       logger.log(`⚡ http://${host}:${port}`);
@@ -80,8 +80,8 @@ const bootstrap = async () => {
     return app;
   };
   return {
-    boot,
+    listen,
   };
 };
-bootstrap()
-  .then((server) => server.boot);
+boot()
+  .then((server) => server.listen);
