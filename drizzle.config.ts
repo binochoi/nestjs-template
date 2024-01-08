@@ -4,7 +4,7 @@ const {
   DB_HOST: host = 'localhost',
   DB_USER: user,
   DB_PASSWORD: password,
-  DB_NAME,
+  DB_NAME: database = 'db',
   DB_PORT,
 } = process.env;
 
@@ -17,7 +17,7 @@ export default {
     user,
     password,
     host,
-    database: DB_NAME || '',
+    database,
     port: Number(DB_PORT) || 0,
   },
 } satisfies Config;
