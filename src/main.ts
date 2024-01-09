@@ -85,4 +85,4 @@ const boot = async () => {
   };
 };
 boot()
-  .then((server) => server.listen);
+  .then((server) => server.listen());
