@@ -10,7 +10,7 @@
     "@nestjs/swagger": "^7.1.15"
   },
   "dependencies": {
-    "@binochoi/nestjs-mapped-types": "^0.0.2",
+    "@binochoi/nestjs-mapped-types": "^0.0.5",
     "@types/pg": "latest",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.0",
@@ -20,7 +20,7 @@
     "type-fest": "^4.6.0"
   },
   "devDependencies": {
-    "@binochoi/eslint-config-typescript": "^0.0.12",
+    "@binochoi/eslint-config-typescript": "^0.0.24",
     "@typescript-eslint/parser": "^5.62.0"
   }
 }

@@ -1,4 +1,4 @@
-export const parseCookies = <O extends {[key: string]: string}>(headerCookie: string): O => {
+export const parseCookies = <T extends {[key: string]: string}>(headerCookie: string): T => {
   const cookies = headerCookie
     .split('; ')
     .map((cookie) => cookie.split('='));
