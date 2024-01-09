@@ -15,6 +15,7 @@ import { writeFileSync } from 'fs';
 import { AppModule } from './app.module';
 import { Config } from './config';
 import { AllExceptionsFilter } from './filters/all-exceptions.filter';
+import { version } from '../package.json';
 
 const boot = async () => {
   const app = await NestFactory.create<NestFastifyApplication>(
@@ -57,7 +58,7 @@ const boot = async () => {
 
   const apiConfig = new DocumentBuilder()
     .setTitle('API documentation')
-    .setVersion('1.0')
+    .setVersion(version)
     .addTag(config.appName)
     .build();
   const document = SwaggerModule.createDocument(app, apiConfig);

@@ -23,6 +23,7 @@
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": false,
     "allowSyntheticDefaultImports": false,
+    "resolveJsonModule": true,
     "baseUrl": ".",
     "paths": {
       "src/*": ["./src/*"],
