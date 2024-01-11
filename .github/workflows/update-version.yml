@@ -24,18 +24,21 @@ jobs:
       - name: patch version
         run: |
             npm version patch --git-tag-version false
-      
-      - name: Parse package.json
-        id: package-json
-        run: |
-          echo "::set-output name=json::$(cat package.json | jq -r '.')"
-          
+
+      - name: read package.json
+        uses: jaywcjlove/github-action-package@main
+
       - uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_author: release[bot] <actions@github.com>
-          commit_message: 'release ${{ steps.parse-json.outputs.json.version }}' 
-          tagging_message: '${{ steps.parse-json.outputs.json.version }}'
+          commit_message: 'release ${{ steps.info.outputs.version }}' 
+          tagging_message: '${{ steps.info.outputs.version }}'
           push_options: '--tag'
-        
+
       - name: Changelog CI
         uses: saadmk11/changelog-ci@v1.1.2
+        with:
+          committer_username: 'release[bot]'
+          committer_email: 'actions@github.com'
+          release_version: ${{ steps.info.outputs.version }}
+          changelog_filename: CHANGELOG.rst
