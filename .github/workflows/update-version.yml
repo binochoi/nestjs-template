@@ -35,12 +35,3 @@ jobs:
           commit_message: 'release ${{ steps.info.outputs.version }}' 
           tagging_message: '${{ steps.info.outputs.version }}'
           push_options: '--tag'
-
-      - name: Changelog CI
-        uses: saadmk11/changelog-ci@v1.1.2
-        with:
-          committer_username: 'release[bot]'
-          committer_email: 'actions@github.com'
-          release_version: ${{ steps.info.outputs.version }}
-          changelog_filename: CHANGELOG.rst
-          config_file: changelog.config.json

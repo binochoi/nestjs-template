@@ -1,5 +1,6 @@
 {
   "changelog_type": "commit_message",
+  "header_prefix": "Version:",
   "commit_changelog": true,
   "comment_changelog": true,
   "group_config": [
