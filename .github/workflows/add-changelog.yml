@@ -27,6 +27,7 @@ jobs:
           changelog_filename: CHANGELOG.rst
           config_file: changelog.config.json
           github_token: ${{ secrets.PAT }}
+          
       - name: Get Changelog Output
         run: |
           echo "${{ steps.info.outputs.version }}"
