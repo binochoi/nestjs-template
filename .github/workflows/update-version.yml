@@ -28,6 +28,11 @@ jobs:
       - name: read package.json
         id: info
         uses: jaywcjlove/github-action-package@main
+      
+      - name: commit and push
+        run: |
+          git commit -m 'release ${{ steps.info.outputs.version }}'
+          git push --tag
 
       - uses: stefanzweifel/git-auto-commit-action@v5
         with:
@@ -35,3 +40,16 @@ jobs:
           commit_message: 'release ${{ steps.info.outputs.version }}' 
           tagging_message: '${{ steps.info.outputs.version }}'
           push_options: '--tag'
+          
+      # - name: Changelog CI
+      #   uses: saadmk11/changelog-ci@v1.1.2
+      #   with:
+      #     committer_username: 'release[bot]'
+      #     committer_email: 'actions@github.com'
+      #     release_version: ${{ steps.info.outputs.version }}
+      #     changelog_filename: CHANGELOG.rst
+      #     config_file: changelog.config.json
+      # - name: Get Changelog Output
+      #   run: |
+      #     echo "${{ steps.changelog-ci.outputs.changelog }}"
+      #     echo "${{ steps.changelog-ci.outputs.changelog }}" >> $GITHUB_STEP_SUMMARY
