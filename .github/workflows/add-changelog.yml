@@ -14,31 +14,19 @@ jobs:
         uses: actions/checkout@v4
         with:
           token: ${{ secrets.PAT }}
-      - name: git global config
-        run: |
-          git config --global user.email "bonoself@gmail.com"
-          git config --global user.name "bino"
-          
-      - name: Get previous tag
-        id: previousTag
-        run: |
-          name=$(git --no-pager tag --sort=creatordate --merged ${{ github.ref_name }} | tail -2 | head -1)
-          echo "previousTag: $name"
-          echo "previousTag=$name" >> $GITHUB_ENV
-          
-      - name: Update CHANGELOG
-        id: changelog
-        uses: requarks/changelog-action@v1
-        with:
-          token: ${{ github.token }}
-          fromTag: ${{ github.ref_name }}
-          toTag: ${{ env.previousTag }}
-          writeToFile: false
+      - name: read package.json
+        id: info
+        uses: jaywcjlove/github-action-package@main
 
-      - uses: EndBug/add-and-commit@v9
+      - name: Changelog CI
+        uses: saadmk11/changelog-ci@v1.1.2
         with:
-          author_name: changelog[bot]
-          author_email: actions@github.com
-          message: 'docs: update CHANGELOG.md'
-          push: true
-          tag: '${{ steps.info.outputs.version }}'
+          committer_username: 'release[bot]'
+          committer_email: 'actions@github.com'
+          release_version: ${{ steps.info.outputs.version }}
+          changelog_filename: CHANGELOG.rst
+          # config_file: changelog.config.json
+      - name: Get Changelog Output
+        run: |
+          echo "${{ steps.info.outputs.version }}"
+          echo "${{ steps.info.outputs.version }}" >> $GITHUB_STEP_SUMMARY
