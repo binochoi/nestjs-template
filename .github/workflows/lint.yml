@@ -1,6 +1,8 @@
 name: Auto lint
 on:
   push:
+    tags: 
+      - '*'
 jobs:
   lint-by-bot:
     runs-on: ubuntu-latest
