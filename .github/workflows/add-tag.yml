@@ -2,7 +2,7 @@ name: Add Commit Tag
 on:
   push:
     branches:
-      - main
+      - develop
     
 jobs:
   update-version:
@@ -35,3 +35,4 @@ jobs:
           message: 'tag: ${{ steps.info.outputs.version }}'
           push: true
           tag: '${{ steps.info.outputs.version }}'
+          # new_branch: main
