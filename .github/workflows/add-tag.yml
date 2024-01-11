@@ -5,7 +5,7 @@ on:
       - develop
     
 jobs:
-  update-version:
+  release-version:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
