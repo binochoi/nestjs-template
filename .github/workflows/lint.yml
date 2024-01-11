@@ -1,6 +1,9 @@
-name: Auto lint
+name: lint
 on:
   push:
+    tags: 
+      - '*'
+  workflow_dispatch:
 jobs:
   lint-by-bot:
     runs-on: ubuntu-latest

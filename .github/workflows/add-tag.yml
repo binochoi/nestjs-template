@@ -1,10 +1,11 @@
-name: Auto version update
+name: Add Commit Tag
 on:
   push:
     branches:
-      - main
+      - develop
+    
 jobs:
-  update-version:
+  release-version:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
@@ -21,8 +22,16 @@ jobs:
           git config --global user.name "bino"
       - name: patch version
         run: |
-            npm version patch
-      - uses: stefanzweifel/git-auto-commit-action@v5
+            npm version patch --git-tag-version false
+
+      - name: read package.json
+        id: info
+        uses: jaywcjlove/github-action-package@main
+
+      - uses: EndBug/add-and-commit@v9
         with:
-          commit_author: release[bot] <actions@github.com>
-          commit_message: 'tag:'
+          author_name: release[bot]
+          author_email: actions@github.com
+          message: 'tag: ${{ steps.info.outputs.version }}'
+          push: true
+          tag: '${{ steps.info.outputs.version }}'
