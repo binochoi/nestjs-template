@@ -3,6 +3,7 @@
   "header_prefix": "Version:",
   "commit_changelog": true,
   "comment_changelog": true,
+  "include_unlabeled_changes": false,
   "group_config": [
     {
       "title": "New Features",
