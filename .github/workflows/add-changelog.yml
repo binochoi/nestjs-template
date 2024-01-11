@@ -25,7 +25,8 @@ jobs:
           committer_email: 'actions@github.com'
           release_version: ${{ steps.info.outputs.version }}
           changelog_filename: CHANGELOG.rst
-          # config_file: changelog.config.json
+          config_file: changelog.config.json
+          github_token: ${{ secrets.PAT }}
       - name: Get Changelog Output
         run: |
           echo "${{ steps.info.outputs.version }}"
