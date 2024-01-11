@@ -17,7 +17,7 @@ import { Config } from './config';
 import { AllExceptionsFilter } from './filters/all-exceptions.filter';
 import { version } from '../package.json';
 
-const boot = async () => { 
+const boot = async () => {
   const app = await NestFactory.create<NestFastifyApplication>(
     AppModule,
     new FastifyAdapter({
