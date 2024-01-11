@@ -1,10 +1,10 @@
-name: Auto update version
+name: Auto version update
 on:
   push:
     branches:
       - main
 jobs:
-  lint-by-bot:
+  update-version:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
