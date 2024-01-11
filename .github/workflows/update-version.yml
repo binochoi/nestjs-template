@@ -1,8 +1,10 @@
 name: Auto version update
 on:
   push:
-    branches:
-      - main
+    tags:
+      - '!*'
+    # branches:
+    #   - main
     
 jobs:
   update-version:
@@ -41,7 +43,7 @@ jobs:
         with:
           author_name: release[bot]
           author_email: actions@github.com
-          message: 'release ${{ steps.info.outputs.version }}'
+          message: 'tag: ${{ steps.info.outputs.version }}'
           push: true
           tag: '${{ steps.info.outputs.version }}'
 
