@@ -28,19 +28,15 @@ jobs:
       - name: read package.json
         id: info
         uses: jaywcjlove/github-action-package@main
-      
-      - name: commit and push
-        run: |
-          git add .
-          git commit -m 'release ${{ steps.info.outputs.version }}'
-          git push --tag
 
-      - uses: stefanzweifel/git-auto-commit-action@v5
+      - uses: EndBug/add-and-commit@v9 # You can change this to use a specific version.
         with:
-          commit_author: release[bot] <actions@github.com>
-          commit_message: 'release ${{ steps.info.outputs.version }}' 
-          tagging_message: '${{ steps.info.outputs.version }}'
-          push_options: '--tag'
+          author_name: release[bot]
+          author_email: actions@github.com
+          message: 'release ${{ steps.info.outputs.version }}'
+          push: true
+          tag: '${{ steps.info.outputs.version }}'
+
           
       # - name: Changelog CI
       #   uses: saadmk11/changelog-ci@v1.1.2
