@@ -21,6 +21,6 @@
   },
   "devDependencies": {
     "@binochoi/eslint-config-typescript": "^0.0.24",
-    "@typescript-eslint/parser": "^5.62.0"
+    "@typescript-eslint/parser": "^6.0.0"
   }
 }
