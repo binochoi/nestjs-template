@@ -26,6 +26,7 @@ jobs:
             npm version patch --git-tag-version false
 
       - name: read package.json
+        id: info
         uses: jaywcjlove/github-action-package@main
 
       - uses: stefanzweifel/git-auto-commit-action@v5
