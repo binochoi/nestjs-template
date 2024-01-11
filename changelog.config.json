@@ -2,11 +2,5 @@
   "changelog_type": "pull_request",
   "header_prefix": "Version:",
   "commit_changelog": true,
-  "comment_changelog": true,
-  "group_config": [
-    {
-      "title": "New Features",
-      "labels": ["feat"]
-    }
-  ]
+  "comment_changelog": true
 }
