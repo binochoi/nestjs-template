@@ -1,0 +1,9 @@
+{
+  "changelog_type": "commit_message",
+  "group_config": [
+    {
+      "title": "New Features",
+      "labels": ["feat"]
+    }
+  ]
+}
