@@ -3,12 +3,19 @@ on:
   push:
     branches:
       - main
-    tags: []
     
 jobs:
   update-version:
     runs-on: ubuntu-latest
     steps:
+      - name: Check Tag
+        run: |
+          if [[ -z ${{ github.ref }} ]]; then
+          else
+          # exit when tag exist
+            exit 0
+          fi
+
       - name: Checkout Repository
         uses: actions/checkout@v4
         with:
