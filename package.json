@@ -1,6 +1,6 @@
 {
   "name": "nest-server",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "",
   "author": "",
   "private": true,
@@ -14,7 +14,6 @@
     "dev:entrypoint": "pnpm db:migrate & pnpm dev & pnpm db:studio",
     "db:migrate": "rimraf drizzle && pnpm drizzle-kit generate:pg --config=./drizzle.config.ts && pnpm tsx ./src/database/migrate.ts && drizzle-kit push:pg",
     "db:studio": "pnpm drizzle-kit studio --port ${DB_STUDIO_PORT} --verbose",
-    
     "lint": "eslint \"{src, test}/**/*.ts\" --fix",
     "test": "jest",
     "test:watch": "jest --watch",
