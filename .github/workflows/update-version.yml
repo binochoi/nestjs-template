@@ -11,8 +11,10 @@ jobs:
       - name: Check Tag
         run: |
           if [[ -z ${{ github.ref }} ]]; then
+            echo 'tag not exist'
           else
-            exit 0
+            echo 'tag exist'
+          exit 0
           fi
 
       - name: Checkout Repository
