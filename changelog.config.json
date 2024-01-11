@@ -1,5 +1,7 @@
 {
   "changelog_type": "commit_message",
+  "commit_changelog": true,
+  "comment_changelog": true,
   "group_config": [
     {
       "title": "New Features",
