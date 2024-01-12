@@ -11,9 +11,9 @@ import {
 } from 'drizzle-orm/pg-core';
 //
 namespace Table {
-    export type users = Pick<User, 'id' | 'userId' | 'role' | 'nickname' | 'lastAccessDate'>;
-    export type user_details = Pick<User, 'id' | 'name' | 'phoneNumber' | 'signUpDate' | 'socialProvider'>;
-    export type user_secrets = Pick<User, 'id' | 'password'>;
+  export type users = Pick<User, 'id' | 'userId' | 'role' | 'nickname' | 'lastAccessDate'>;
+  export type userDetails = Pick<User, 'id' | 'name' | 'phoneNumber' | 'signUpDate' | 'socialProvider'>;
+  export type userSecrets = Pick<User, 'id' | 'password'>;
 }
 const v = userValidation;
 export const user = pgTable('users', {
@@ -37,14 +37,14 @@ export const userDetail = pgTable('user_details', {
   }),
   signUpDate: timestamp('sign_up_date').notNull(),
   socialProvider: smallint('social_provider').$type<SocialProvider>(),
-} satisfies Record<keyof Table.user_details, unknown>);
+} satisfies Record<keyof Table.userDetails, unknown>);
 const BCRYPT_HASH_LENGTH = 60;
 export const userSecret = pgTable('user_secrets', {
   id: integer('id').notNull(),
   password: char('password', {
     length: BCRYPT_HASH_LENGTH,
   }),
-} satisfies Record<keyof Table.user_secrets, unknown>);
+} satisfies Record<keyof Table.userSecrets, unknown>);
 
 export const userRelations = relations(user, ({ one }) => ({
   detail: one(userDetail),

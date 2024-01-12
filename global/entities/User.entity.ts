@@ -42,8 +42,7 @@ export class UserEntity {
   })
   @IsNotEmpty({ message: ' ' })
   @IsString()
-  @IsOptional()
-    name?: string;
+    name: string;
 
   @ApiProperty()
   @IsIn(Object.values(role))
@@ -53,8 +52,7 @@ export class UserEntity {
   @IsNotEmpty({ message: '휴대번호가 비어있습니다.' })
   @Length(0, validation.phoneNumber.max, { message: '' })
   @IsString()
-  @IsOptional()
-    phoneNumber?: string;
+    phoneNumber: string;
 
   @ApiProperty()
   @Length(validation.password.min, validation.password.max, {
@@ -80,10 +78,6 @@ export class UserEntity {
   @ApiProperty()
   @IsDate()
     lastAccessDate: Date;
-
-  @IsOptional()
-  @IsBoolean()
-    isReceiveSMS: boolean;
 }
 
 export type User = SetOptional<InstanceType<typeof UserEntity>, 'socialProvider' | 'password'>;

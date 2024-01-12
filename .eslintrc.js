@@ -8,7 +8,7 @@ module.exports = {
   extends: [
     '@binochoi/eslint-config-typescript',
   ],
-  plugins: ['drizzle'],
+  plugins: ['drizzle', 'decorator-position'],
   root: true,
   env: {
     node: true,
@@ -16,6 +16,19 @@ module.exports = {
   },
   ignorePatterns: ['.eslintrc.js'],
   rules: {
+    'indent': 'off',
+    '@typescript-eslint/no-unused-vars': 'warn',
+    '@typescript-eslint/indent': [
+      'error',
+      2,
+      {
+        'ignoredNodes': [
+          'FunctionExpression > .params[decorators.length > 0]',
+          'FunctionExpression > .params > :matches(Decorator, :not(:first-child))',
+          'ClassBody.body > PropertyDefinition[decorators.length > 0] > .key'
+        ]
+      }
+    ],
     'drizzle/enforce-delete-with-where': ['error', { 'drizzleObjectName': ['db', 'tx'] }],
     'drizzle/enforce-update-with-where': ['error', { 'drizzleObjectName': ['db', 'tx'] }],
   }

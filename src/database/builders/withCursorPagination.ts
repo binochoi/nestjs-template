@@ -36,10 +36,10 @@ export function withCursorPagination<
     ]
   }
 )): {
-  orderBy: SQL[]
-  limit: number
-  where?: SQL
-} {
+    orderBy: SQL[]
+    limit: number
+    where?: SQL
+  } {
   // Primary cursor
   const primaryColumn = cursors[0][0];
   const primaryOrder = cursors[0][1] === 'asc' ? asc : desc;

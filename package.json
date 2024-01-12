@@ -22,7 +22,7 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
-    "@binochoi/eslint-config-typescript": "latest",
+    "@binochoi/eslint-config-typescript": "^0.0.12",
     "@fastify/compress": "^6.4.0",
     "@fastify/cookie": "^9.1.0",
     "@fastify/cors": "^8.3.0",
@@ -79,6 +79,7 @@
     "ts-node": "^10.9.1",
     "tsconfig-paths": "4.2.0",
     "tsx": "^4.0.0",
+    "type-fest": "^4.9.0",
     "typescript": "^5.2.2"
   },
   "jest": {

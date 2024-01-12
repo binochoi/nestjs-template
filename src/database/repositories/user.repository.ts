@@ -1,7 +1,12 @@
 import { desc, eq, sql } from 'drizzle-orm';
 import { FindMany, FindOne } from '@global/DTOs/user.dto';
+import { UserEntity } from '@global/entities/User.entity';
+import { getMatchedObject } from '@global/utils/getMatchedObject';
+import { SetOptional } from 'type-fest';
 import db from '../db';
-import { user, userDetail } from '../schema';
+import { user, userDetail, userSecret } from '../schema/user.schema';
+
+type UpdatedUser = SetOptional<UserEntity, keyof Omit<UserEntity, 'id'>>;
 
 export class UserRepository {
   async findMany({ page, count }: FindMany.RequestQuery): Promise<FindMany.Response> {
@@ -34,6 +39,53 @@ export class UserRepository {
         secret: true,
       },
       where: getWhere(searchValue),
+    });
+  }
+
+  async insert(params: UserEntity | UserEntity[]) {
+    return db.transaction(async (tx) => {
+      const insertOne = async (params: UserEntity) => {
+        const [basic] = await tx.insert(user).values({
+          ...params,
+          lastAccessDate: new Date(),
+        })
+          .returning();
+        const [detail] = await tx
+          .insert(userDetail)
+          .values({ ...getMatchedObject(params, userDetail), id: basic.id })
+          .returning();
+        const [secret] = await tx
+          .insert(userSecret)
+          .values({ ...getMatchedObject(params, userSecret), id: basic.id })
+          .returning();
+        return {
+          ...basic,
+          ...detail,
+          ...secret,
+        };
+      };
+      if (Array.isArray(params)) {
+        return Promise.all(
+          params.map(insertOne),
+        );
+      }
+      return insertOne(params);
+    });
+  }
+
+  async update(params: UpdatedUser | UpdatedUser[]) {
+    db.transaction(async (tx) => {
+      const updateOne = async (params: UpdatedUser) => {
+        await tx.update(user).set(getMatchedObject(params, user)).where(eq(user.id, params.id));
+        await tx.update(userDetail).set(getMatchedObject(params, userDetail)).where(eq(userDetail.id, params.id));
+        await tx.update(userSecret).set(getMatchedObject(params, userSecret)).where(eq(userSecret.id, params.id));
+      };
+      if (Array.isArray(params)) {
+        return Promise.all(
+          params.map(updateOne),
+        );
+      }
+      return updateOne(params);
     });
   }
 }

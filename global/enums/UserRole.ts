@@ -1,5 +1,5 @@
 const role = {
-  PREMIUM: 5,
+  PREMIUM: 3,
   VERIFIED: 1,
   NEWBIE: 0,
 } as const;

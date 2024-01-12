@@ -25,4 +25,7 @@ export class Config {
   public get isProd() {
     return this.env === 'prod';
   }
+
+  @IsString()
+  public readonly tokenSecret: string;
 }
