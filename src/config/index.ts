@@ -28,4 +28,8 @@ export class Config {
 
   @IsString()
   public readonly token_secret: string;
+
+  public get serverHost() {
+    return this.isDev ? `http://localhost:${this.port}` : process.env.SERVER_HOST;
+  }
 }

@@ -12,6 +12,7 @@ import fastifyCookie from '@fastify/cookie';
 import { FastifyInstance } from 'fastify';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { writeFileSync } from 'fs';
+import { fastifySession } from '@fastify/session';
 import { AppModule } from './app.module';
 import { Config } from './config';
 import { AllExceptionsFilter } from './filters/all-exceptions.filter';
@@ -28,6 +29,18 @@ const boot = async () => {
   );
   const { httpAdapter } = app.get(HttpAdapterHost);
   const fastify = httpAdapter.getInstance<FastifyInstance>();
+  fastify.addHook('onRequest', (request: any, reply: any, done) => {
+    // eslint-disable-next-line no-param-reassign
+    reply.setHeader = function(key: any, value: any) {
+      return this.raw.setHeader(key, value);
+    };
+    // eslint-disable-next-line no-param-reassign
+    reply.end = function() {
+      this.raw.end();
+    };
+    request.res = reply;
+    done();
+  });
   const config = app.get(Config);
   const { isDev, isProd } = config;
   await fastify.register(helmet);
@@ -46,6 +59,7 @@ const boot = async () => {
     skipOnError: true,
     cache: 10000,
   });
+  fastify.register(fastifySession, { secret: 'ga78dT&!Y@*(fjhaudasdhwajidqwh17 y217e78T&*A' });
 
   app.useGlobalPipes(
     new ValidationPipe({

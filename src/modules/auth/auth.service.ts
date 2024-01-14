@@ -40,8 +40,13 @@ export class AuthService {
     return this.refresh(user);
   }
 
-  signInSocial() {
-
+  async signInSocial(params: Parameters<UserService['insertOne']>[0]) {
+    // let user = await this.userService.findOne({ searchBy: 'id', searchValue: params.id });
+    // // if (user === undefined) {
+    // //   user = await this.userService.insertOne(params);
+    // // }
+    // // this.logger.log('signin user', user);
+    // return this.refresh(user);
   }
 
   async logout(sessionId: string) {
