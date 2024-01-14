@@ -25,12 +25,12 @@ import { RolesGuard } from './guards/role.guard';
   ],
   providers: [
     {
-      provide: APP_INTERCEPTOR,
-      useClass: SessionInterceptor,
-    },
-    {
       provide: APP_GUARD,
       useClass: RolesGuard,
+    },
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: SessionInterceptor,
     },
   ],
   controllers: [AppController],

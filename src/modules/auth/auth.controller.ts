@@ -1,8 +1,7 @@
 import {
-  Controller, Post, Get, Res,
+  Controller, Post, Get, Res, Body,
 } from '@nestjs/common';
 import { SignIn, SignUp } from '@global/DTOs/auth.dto';
-import { Body } from '@nestjs/common/decorators';
 import { FastifyReply } from 'fastify';
 import dayjs = require('dayjs');
 import { AuthService } from './auth.service';
