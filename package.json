@@ -21,7 +21,7 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
-    "@binochoi/eslint-config-typescript": "^0.0.12",
+    "@binochoi/eslint-config-typescript": "^0.0.25",
     "@fastify/compress": "^6.4.0",
     "@fastify/cookie": "^9.1.0",
     "@fastify/cors": "^8.3.0",
