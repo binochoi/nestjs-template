@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import type { NestModule, MiddlewareConsumer } from '@nestjs/common/interfaces';
 import { TypedConfigModule, dotenvLoader } from 'nest-typed-config';
-import { APP_INTERCEPTOR } from '@nestjs/core';
+import { APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
 import { AppController } from './app.controller';
 import { Config } from './config';
 import { SessionModule } from './modules/session/session.module';
@@ -9,6 +9,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import { UserModule } from './modules/user/user.module';
 import { AuthMiddleware } from './middlewares/auth.middleware';
 import { SessionInterceptor } from './interceptors/session/session.interceptor';
+import { RolesGuard } from './guards/role.guard';
 
 @Module({
   imports: [
@@ -26,6 +27,10 @@ import { SessionInterceptor } from './interceptors/session/session.interceptor';
     {
       provide: APP_INTERCEPTOR,
       useClass: SessionInterceptor,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: RolesGuard,
     },
   ],
   controllers: [AppController],
