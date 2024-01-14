@@ -6,7 +6,7 @@ import { Body } from '@nestjs/common/decorators';
 import { FastifyReply } from 'fastify';
 import dayjs = require('dayjs');
 import { AuthService } from './auth.service';
-import { REFRESH_TOKEN_EXPIRES } from '../session/session.constant';
+import { ACCESS_TOKEN_EXPIRES, REFRESH_TOKEN_EXPIRES } from '../session/session.constant';
 
 @Controller('auth')
 export class AuthController {
@@ -17,7 +17,7 @@ export class AuthController {
       sameSite: true,
       httpOnly: true,
       secure: true,
-      expires: dayjs().add(REFRESH_TOKEN_EXPIRES).toDate(),
+      expires: dayjs().add(ACCESS_TOKEN_EXPIRES).toDate(),
     });
     res.setCookie('refresh_token', refreshToken, {
       sameSite: true,
