@@ -1,29 +1,50 @@
-import { Injectable } from '@nestjs/common';
-import { SignIn } from '@global/DTOs/auth.dto';
+import { Injectable, Logger } from '@nestjs/common';
+import { SignIn, SignUp } from '@global/DTOs/auth.dto';
 import { BadRequestException } from '@nestjs/common/exceptions';
+import { UserEntity } from '@global/entities/User.entity';
 import { UserService } from '../user/user.service';
 import { SessionService } from '../session/session.service';
+import { TokenService } from '../session/token.service';
 
 @Injectable()
 export class AuthService {
+  private readonly logger = new Logger(AuthService.name);
+
   constructor(
     private readonly userService: UserService,
     private readonly sessionService: SessionService,
+    private readonly tokenService: TokenService,
   ) { /** */ }
 
-  async signIn(params: SignIn.RequestBody) {
-    const user = await this.userService.findOne({ searchBy: 'userId', searchValue: params.userId });
-    if (user === null) {
-      throw new BadRequestException();
-    }
-    this.sessionService.insertOne();
+  /**
+   * session create & refresh
+   */
+  async refresh(params: Pick<UserEntity, 'id' | 'nickname' | 'role'>) {
+    const userId = params.id;
+    const { id: sessionId } = await this.sessionService.setOne({ userId });
+    const tokens = await this.tokenService.generate({ ...params, sessionId, userId });
+    return tokens;
   }
 
-  signUp() {
+  async signIn(params: SignIn.RequestBody) {
+    const user = await this.userService.findOne({ searchBy: 'id', searchValue: params.id });
+    if (user === undefined) {
+      throw new BadRequestException();
+    }
+    this.logger.log('signin user', user);
+    return this.refresh(user);
+  }
 
+  async signUp(params: SignUp.RequestBody) {
+    const user = await this.userService.insertOne(params);
+    return this.refresh(user);
   }
 
   signInSocial() {
 
+  }
+
+  async logout(sessionId: string) {
+    return this.sessionService.destroy(sessionId);
   }
 }

@@ -27,5 +27,5 @@ export class Config {
   }
 
   @IsString()
-  public readonly tokenSecret: string;
+  public readonly token_secret: string;
 }

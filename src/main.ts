@@ -40,7 +40,7 @@ const boot = async () => {
   await fastify.register(fastifyCookie);
   await fastify.register(rateLimit, {
     max: 15,
-    timeWindow: 1000,
+    timeWindow: 2000,
     allowList: isProd ? [] : ['127.0.0.1'],
     continueExceeding: true,
     skipOnError: true,

@@ -8,7 +8,7 @@ module.exports = {
   extends: [
     '@binochoi/eslint-config-typescript',
   ],
-  plugins: ['drizzle', 'decorator-position'],
+  plugins: ['drizzle'],
   root: true,
   env: {
     node: true,

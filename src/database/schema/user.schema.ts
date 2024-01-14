@@ -6,29 +6,27 @@ import { userValidation } from '@global/validations/user.validation';
 import { relations } from 'drizzle-orm';
 import {
   char,
-  integer,
-  pgTable, serial, smallint, timestamp, varchar,
+  pgTable, smallint, timestamp, uniqueIndex, varchar,
 } from 'drizzle-orm/pg-core';
 //
 namespace Table {
-  export type users = Pick<User, 'id' | 'userId' | 'role' | 'nickname' | 'lastAccessDate'>;
+  export type users = Pick<User, 'id' | 'role' | 'nickname' | 'lastAccessDate'>;
   export type userDetails = Pick<User, 'id' | 'name' | 'phoneNumber' | 'signUpDate' | 'socialProvider'>;
   export type userSecrets = Pick<User, 'id' | 'password'>;
 }
 const v = userValidation;
 export const user = pgTable('users', {
-  id: serial('id').primaryKey(),
-  userId: varchar('user_id', {
-    length: v.userId.max,
-  }).notNull().unique(),
+  id: varchar('id', { length: v.userId.max }).primaryKey(),
   role: smallint('role').$type<Role>().default(role.NEWBIE).notNull(),
   nickname: varchar('nickname', {
     length: v.nickname.max,
   }).notNull().unique(),
   lastAccessDate: timestamp('last_access_date').notNull(),
-} satisfies Record<keyof Table.users, unknown>);
+} satisfies Record<keyof Table.users, unknown>, (user) => ({
+  userIdIndex: uniqueIndex('user_id_index').on(user.id),
+}));
 export const userDetail = pgTable('user_details', {
-  id: integer('id').notNull(),
+  id: varchar('id', { length: v.userId.max }).notNull().unique(),
   name: varchar('name', {
     length: v.name.max,
   }),
@@ -37,16 +35,26 @@ export const userDetail = pgTable('user_details', {
   }),
   signUpDate: timestamp('sign_up_date').notNull(),
   socialProvider: smallint('social_provider').$type<SocialProvider>(),
-} satisfies Record<keyof Table.userDetails, unknown>);
+} satisfies Record<keyof Table.userDetails, unknown>, (user) => ({
+  userIdIndex: uniqueIndex('user_detail_id_index').on(user.id),
+}));
 const BCRYPT_HASH_LENGTH = 60;
 export const userSecret = pgTable('user_secrets', {
-  id: integer('id').notNull(),
+  id: varchar('id', { length: v.userId.max }).notNull().unique(),
   password: char('password', {
     length: BCRYPT_HASH_LENGTH,
   }),
-} satisfies Record<keyof Table.userSecrets, unknown>);
+} satisfies Record<keyof Table.userSecrets, unknown>, (user) => ({
+  userIdIndex: uniqueIndex('user_secret_id_index').on(user.id),
+}));
 
 export const userRelations = relations(user, ({ one }) => ({
-  detail: one(userDetail),
-  secret: one(userSecret),
+  detail: one(userDetail, {
+    fields: [user.id],
+    references: [userDetail.id],
+  }),
+  secret: one(userSecret, {
+    fields: [user.id],
+    references: [userSecret.id],
+  }),
 }));

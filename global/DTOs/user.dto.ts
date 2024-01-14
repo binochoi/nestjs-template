@@ -15,7 +15,7 @@ export namespace FindMany {
     count: number;
   }
   export type Response = {
-    list: Pick<UserEntity, 'id' | 'userId' | 'nickname' | 'role' | 'lastAccessDate'>[],
+    list: Pick<UserEntity, 'id' | 'nickname' | 'role' | 'lastAccessDate'>[],
     count: number;
   };
 }
@@ -23,7 +23,7 @@ export namespace FindMany {
 export namespace FindOne {
   export class RequestQuery {
     @IsIn(['id', 'name', 'nickname', 'password', 'phoneNumber', 'role'] satisfies (keyof UserEntity)[])
-searchBy: keyof UserEntity;
+    searchBy: keyof UserEntity;
 
     searchValue: number | string;
   }

@@ -1,18 +1,12 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 /* eslint-disable max-classes-per-file */
-import { IsString } from 'class-validator';
 import { UserEntity } from '@global/entities/User.entity';
+import { PickType } from '@binochoi/nestjs-mapped-types';
 
 export namespace SignIn {
-  export class RequestBody {
-    @IsString()
-    userId: string;
+  export class RequestBody extends PickType(UserEntity, ['id', 'password']) {}
+}
 
-    @IsString()
-    password: number;
-  }
-  // export type Response = {
-  //   list: Pick<UserEntity, 'id' | 'userId' | 'nickname' | 'role' | 'lastAccessDate'>[],
-  //   count: number;
-  // };
+export namespace SignUp {
+  export class RequestBody extends PickType(UserEntity, ['id', 'name', 'nickname', 'password', 'socialProvider']) {}
 }

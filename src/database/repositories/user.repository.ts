@@ -3,6 +3,7 @@ import { FindMany, FindOne } from '@global/DTOs/user.dto';
 import { UserEntity } from '@global/entities/User.entity';
 import { getMatchedObject } from '@global/utils/getMatchedObject';
 import { SetOptional } from 'type-fest';
+import dayjs = require('dayjs');
 import db from '../db';
 import { user, userDetail, userSecret } from '../schema/user.schema';
 
@@ -29,7 +30,7 @@ export class UserRepository {
   }
 
   async findOne({ searchBy, searchValue }: FindOne.RequestQuery) {
-    const getWhere = (value: number | string) => {
+    const getWhere = (value: any) => {
       const column = searchBy in user ? user[searchBy as keyof typeof user.$inferSelect] : userDetail[searchBy as keyof typeof userDetail.$inferSelect];
       return eq(column, value);
     };
@@ -42,12 +43,12 @@ export class UserRepository {
     });
   }
 
-  async insert(params: UserEntity | UserEntity[]) {
+  async insert<Params extends UserEntity | UserEntity[]>(params: Params) {
     return db.transaction(async (tx) => {
       const insertOne = async (params: UserEntity) => {
         const [basic] = await tx.insert(user).values({
           ...params,
-          lastAccessDate: new Date(),
+          lastAccessDate: dayjs().toDate(),
         })
           .returning();
         const [detail] = await tx
@@ -70,7 +71,7 @@ export class UserRepository {
         );
       }
       return insertOne(params);
-    });
+    }) as Promise<Params extends UserEntity[] ? UserEntity[] : UserEntity>;
   }
 
   async update(params: UpdatedUser | UpdatedUser[]) {

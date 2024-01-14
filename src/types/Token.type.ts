@@ -1,8 +1,10 @@
+import { UserEntity } from '@global/entities/User.entity';
 import { Role } from '@global/enums/UserRole';
 
 export interface AccessToken {
-  nickname: string;
+  userId: UserEntity['id'];
   role: Role,
 }
 
-export type RefreshToken = string;
+type SessionId = string;
+export type RefreshToken = SessionId;

@@ -1,38 +1,31 @@
 import {
-  IsBoolean,
   IsDate,
-  IsIn, IsNotEmpty, IsNumber, IsOptional, IsString, Length, Matches,
+  IsIn, IsNotEmpty, IsOptional, IsString, Length, Matches,
 } from 'class-validator';
 import { SetOptional, SetRequired } from 'type-fest';
 import { ApiProperty } from '@nestjs/swagger';
 import { role, type Role } from '@global/enums/UserRole';
 import { type SocialProvider, socialProvider } from '@global/enums/SocialProvider';
-import { Type } from 'class-transformer';
 import { userValidation } from '@global/validations/user.validation';
 
 const validation = userValidation;
 export class UserEntity {
-  @Type(() => Number)
-  @ApiProperty()
-  @IsNumber()
-    id: number;
-
   @ApiProperty()
   @Length(validation.userId.min, validation.userId.max, {
     message: `아이디는 ${validation.userId.min}~${validation.userId.max}자 사이여야 합니다.`,
   })
   @IsString()
-  @IsNotEmpty({ message: ' ' })
+  @IsNotEmpty()
   @Matches(validation.userId.matches.default, {
     message: '아이디는 소문자 영문, 숫자만 가능합니다.',
   })
-    userId: string;
+    id: string;
 
   @ApiProperty()
   @Length(validation.nickname.min, validation.nickname.max, {
     message: `닉네임은 ${validation.nickname.min}~${validation.nickname.max}자 사이여야 합니다.`,
   })
-  @IsNotEmpty({ message: ' ' })
+  @IsNotEmpty()
   @IsString()
     nickname: string;
 
@@ -40,7 +33,7 @@ export class UserEntity {
   @Length(validation.name.min, validation.name.max, {
     message: `이름은 ${validation.name.min}~${validation.name.max}자 사이여야 합니다.`,
   })
-  @IsNotEmpty({ message: ' ' })
+  @IsNotEmpty()
   @IsString()
     name: string;
 
@@ -52,13 +45,14 @@ export class UserEntity {
   @IsNotEmpty({ message: '휴대번호가 비어있습니다.' })
   @Length(0, validation.phoneNumber.max, { message: '' })
   @IsString()
-    phoneNumber: string;
+  @IsOptional()
+    phoneNumber: string | null = null;
 
   @ApiProperty()
   @Length(validation.password.min, validation.password.max, {
     message: `비밀번호는 ${validation.password.min}~${validation.password.max}자 사이여야 합니다.`,
   })
-  @IsNotEmpty({ message: ' ' })
+  @IsNotEmpty()
   @IsString()
   @Matches(validation.password.matches.default, {
     message: '비밀번호는 영어, 숫자, 특수문자가 하나씩 들어가야 합니다.',
