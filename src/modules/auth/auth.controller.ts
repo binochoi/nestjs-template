@@ -1,3 +1,4 @@
+import { Config } from 'src/config';
 import {
   Controller, Post, Get, Res, Body, UseGuards, Query,
 } from '@nestjs/common';
@@ -7,16 +8,19 @@ import dayjs = require('dayjs');
 import { AuthGuard } from '@nestjs/passport';
 import { Profile } from 'passport-google-oauth20';
 import { Req } from '@nestjs/common/decorators';
+import { getMetaRedirectHTML } from 'src/utils/getMetaRedirectHTML';
+import { socialProvider } from '@global/enums/SocialProvider';
 import { AuthService } from './auth.service';
 import { ACCESS_TOKEN_EXPIRES, REFRESH_TOKEN_EXPIRES } from '../session/session.constant';
+import { OAUTH_PAYLOAD_COOKIE_NAME } from './auth.constants';
 
 const GoogleGuard = () => UseGuards(AuthGuard('google'));
 const NaverGuard = () => UseGuards(AuthGuard('naver'));
-const TwitterGuard = () => UseGuards(AuthGuard('twitter'));
+// const TwitterGuard = () => UseGuards(AuthGuard('twitter'));
 
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) { /** */ }
+  constructor(private readonly authService: AuthService, private readonly config: Config) { /** */ }
 
   private setTokenCookies(res: FastifyReply, { accessToken, refreshToken }: Record<'accessToken' | 'refreshToken', string>) {
     res.setCookie('access_token', accessToken, {
@@ -53,10 +57,25 @@ export class AuthController {
     res.send(info.accessUser);
   }
 
-  @Get('test')
-  googleTest(@Res() res: FastifyReply) {
-    res.setCookie('__payload__', 'success !');
-    res.status(301).redirect('http://localhost:3000/auth/google');
+  /**
+   * @description
+   * data couldn't transfer to callback page when social login
+   * and session method (aka express-session) does not insure consistent
+   * so as using cookie, it could be solved
+   * yeah, this is hack. but its working well
+   *
+   * @example
+   * http://127.0.0.1:3000/auth/social?redirectUrl=${frontendRefreshUrl}&provider=GOOGLE
+   */
+  @Get('social')
+  signinSocial(@Res() res: FastifyReply, @Query() query: {
+    /** redirect url to redirect after oauth redirect */
+    redirectUrl: string;
+    provider: keyof typeof socialProvider;
+  }) {
+    res.setCookie(OAUTH_PAYLOAD_COOKIE_NAME, encodeURIComponent(JSON.stringify(query)), { path: '/', maxAge: 1000 * 60 * 5 });
+    const html = getMetaRedirectHTML(`${this.config.serverHost}/auth/${query.provider.toLowerCase()}`);
+    res.type('text/html').send(html);
   }
 
   @GoogleGuard()
@@ -67,21 +86,17 @@ export class AuthController {
   @Get('naver')
   twitterLogin() {}
 
-  @GoogleGuard()
   @Get('callback')
   authSocial(
-    @Req() { user }: FastifyRequest & { user: Profile },
+    @Req() req: FastifyRequest & { user: Profile },
     @Res() res: FastifyReply,
-    @Query() query: any,
   ) {
-    // const { cookies } = res;
-    // is exist
-    // if signin
-    // else signup
-    return {
+    const { user, cookies } = req;
+    const payloadJSON = cookies[OAUTH_PAYLOAD_COOKIE_NAME];
+    const payload = {
       user,
-      query,
-      // cookies,
+      ...JSON.parse(decodeURIComponent(payloadJSON!)),
     };
+    res.status(302).redirect(`${payload.redirectUrl}?payload=${encodeURIComponent(JSON.stringify(payload))}`);
   }
 }

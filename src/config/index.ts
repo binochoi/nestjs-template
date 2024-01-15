@@ -30,6 +30,6 @@ export class Config {
   public readonly token_secret: string;
 
   public get serverHost() {
-    return this.isDev ? `http://localhost:${this.port}` : process.env.SERVER_HOST;
+    return this.isDev ? `http://127.0.0.1:${this.port}` : process.env.SERVER_HOST;
   }
 }
