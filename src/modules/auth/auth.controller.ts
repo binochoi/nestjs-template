@@ -16,7 +16,7 @@ import { OAUTH_PAYLOAD_COOKIE_NAME } from './auth.constants';
 
 const GoogleGuard = () => UseGuards(AuthGuard('google'));
 const NaverGuard = () => UseGuards(AuthGuard('naver'));
-// const TwitterGuard = () => UseGuards(AuthGuard('twitter'));
+const TwitterGuard = () => UseGuards(AuthGuard('twitter'));
 
 @Controller('auth')
 export class AuthController {
@@ -80,11 +80,15 @@ export class AuthController {
 
   @GoogleGuard()
   @Get('google')
-  googleLogin() {}
+  signInGoogle() {}
+
+  @TwitterGuard()
+  @Get('twitter')
+  signInTwitter() {}
 
   @NaverGuard()
   @Get('naver')
-  twitterLogin() {}
+  signInNaver() {}
 
   @Get('callback')
   authSocial(
