@@ -29,7 +29,8 @@ export class UserRepository {
       }));
   }
 
-  async findOne({ searchBy, searchValue }: FindOne.RequestQuery) {
+  async findOne(props: FindOne.RequestQuery) {
+    const [[searchBy, searchValue]] = Object.entries(props);
     const getWhere = (value: any) => {
       const column = searchBy in user ? user[searchBy as keyof typeof user.$inferSelect] : userDetail[searchBy as keyof typeof userDetail.$inferSelect];
       return eq(column, value);

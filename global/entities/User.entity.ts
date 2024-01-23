@@ -54,10 +54,11 @@ export class UserEntity {
   })
   @IsNotEmpty()
   @IsString()
+  @IsOptional()
   @Matches(validation.password.matches.default, {
     message: '비밀번호는 영어, 숫자, 특수문자가 하나씩 들어가야 합니다.',
   })
-    password: string;
+    password?: string;
 
   @ApiProperty()
   @IsNotEmpty()

@@ -43,7 +43,7 @@ export class AuthMiddleware implements NestMiddleware {
       }
       this.logger.log('maybe accessToken expired or refresh token malformed');
       const { userId, sessionId } = await this.sessionService.refresh(refreshToken);
-      const user = await this.userService.findOne({ searchBy: 'id', searchValue: userId });
+      const user = await this.userService.findOne({ id: userId });
       if (user === undefined) {
         this.logger.log('user is not exist');
         throw new UnauthorizedException();

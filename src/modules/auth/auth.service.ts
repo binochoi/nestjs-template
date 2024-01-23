@@ -2,6 +2,7 @@ import { Injectable, Logger } from '@nestjs/common';
 import { SignIn, SignUp } from '@global/DTOs/auth.dto';
 import { BadRequestException } from '@nestjs/common/exceptions';
 import { UserEntity } from '@global/entities/User.entity';
+import * as bcrypt from 'bcryptjs';
 import { UserService } from '../user/user.service';
 import { SessionService } from '../session/session.service';
 import { TokenService } from '../session/token.service';
@@ -26,10 +27,13 @@ export class AuthService {
     return tokens;
   }
 
-  async signIn(params: SignIn.RequestBody) {
-    const user = await this.userService.findOne({ searchBy: 'id', searchValue: params.id });
+  async signIn({ id, password }: SignIn.RequestBody) {
+    const user = await this.userService.findOne({ id });
     if (user === undefined) {
-      throw new BadRequestException();
+      throw new BadRequestException('user is not exist');
+    }
+    if (user?.secret.password && await bcrypt.compare(password || '', user?.secret.password)) {
+      throw new BadRequestException('user password is wrong');
     }
     this.logger.log('signin user', user);
     return this.refresh(user);

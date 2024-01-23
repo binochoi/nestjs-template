@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 /* eslint-disable max-classes-per-file */
-import { IsIn, IsNumber } from 'class-validator';
+import { IsNumber } from 'class-validator';
 import { Type } from 'class-transformer';
 import { UserEntity } from '@global/entities/User.entity';
+import { PartialType } from '@binochoi/nestjs-mapped-types';
 
 export namespace FindMany {
   export class RequestQuery {
@@ -21,10 +22,5 @@ export namespace FindMany {
 }
 
 export namespace FindOne {
-  export class RequestQuery {
-    @IsIn(['id', 'name', 'nickname', 'password', 'phoneNumber', 'role'] satisfies (keyof UserEntity)[])
-    searchBy: keyof UserEntity;
-
-    searchValue: number | string;
-  }
+  export class RequestQuery extends PartialType(UserEntity) {}
 }
