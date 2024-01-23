@@ -23,32 +23,35 @@ export class AuthMiddleware implements NestMiddleware {
 
   async use(req: FastifyRequest['raw'], res: FastifyReply['raw'], next: () => void) {
     const { cookie } = req.headers;
-    const cookies = parseCookies<Cookies>(cookie || '');
-    if (!cookies.access_token && !cookies.refresh_token) {
+    const {
+      access_token: accessToken,
+      refresh_token: refreshToken,
+    } = parseCookies<Cookies>(cookie || '');
+    if (!accessToken && !refreshToken) {
       next();
       return;
     }
     try {
-      const user = await this.tokenService.verify<AccessToken>(cookies.access_token || '');
+      const user = await this.tokenService.verify<AccessToken>(accessToken || '');
       (req as any).user = user;
       this.logger.log('user info: ');
       this.logger.log(user);
     } catch {
-      if (!cookies.refresh_token) {
+      if (!refreshToken) {
         this.logger.log('refresh token is expired');
         throw new UnauthorizedException();
       }
       this.logger.log('maybe accessToken expired or refresh token malformed');
-      const { userId, sessionId } = await this.sessionService.refresh(cookies.refresh_token);
+      const { userId, sessionId } = await this.sessionService.refresh(refreshToken);
       const user = await this.userService.findOne({ searchBy: 'id', searchValue: userId });
       if (user === undefined) {
         this.logger.log('user is not exist');
         throw new UnauthorizedException();
       }
       const payload = { ...user, sessionId, userId: user.id };
-      const { accessUser, accessToken, refreshToken } = await this.tokenService.generate(payload);
-      (req as any).user = accessUser;
-      (res as any).takeOver = { accessUser, accessToken, refreshToken };
+      const takeOver = await this.tokenService.generate(payload);
+      (res as any).takeOver = takeOver;
+      (req as any).user = takeOver.accessUser;
     }
     next();
   }
