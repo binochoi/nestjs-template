@@ -62,7 +62,7 @@ export class AuthController {
    * data couldn't transfer to callback page when social login
    * and session method (aka express-session) does not insure consistent
    * so as using cookie, it could be solved
-   * well, this is hack. but its working well
+   * well, this is hack. but it's working well
    *
    * @warn
    * it should be use 127.0.0.1 instead of localhost because of chromium issue on dev
