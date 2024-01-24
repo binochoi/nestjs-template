@@ -65,7 +65,7 @@ export class AuthController {
    * yeah, this is hack. but its working well
    *
    * @warn
-   * it should be use 127.0.0.1 instead of localhost because of chromium issue
+   * it should be use 127.0.0.1 instead of localhost because of chromium issue on dev
    *
    * @example
    * http://127.0.0.1:3000/auth/social?redirectUrl=${frontendRefreshUrl}&provider=GOOGLE
