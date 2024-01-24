@@ -22,21 +22,6 @@ const TwitterGuard = () => UseGuards(AuthGuard('twitter'));
 export class AuthController {
   constructor(private readonly authService: AuthService, private readonly config: Config) { /** */ }
 
-  private setTokenCookies(res: FastifyReply, { accessToken, refreshToken }: Record<'accessToken' | 'refreshToken', string>) {
-    res.setCookie('access_token', accessToken, {
-      sameSite: true,
-      httpOnly: true,
-      secure: true,
-      expires: dayjs().add(ACCESS_TOKEN_EXPIRES).toDate(),
-    });
-    res.setCookie('refresh_token', refreshToken, {
-      sameSite: true,
-      httpOnly: true,
-      secure: true,
-      expires: dayjs().add(REFRESH_TOKEN_EXPIRES).toDate(),
-    });
-  }
-
   @Post('signin')
   async signIn(
     @Res() res: FastifyReply,
@@ -55,6 +40,21 @@ export class AuthController {
     const info = await this.authService.signUp(form);
     this.setTokenCookies(res, info);
     res.send(info.accessUser);
+  }
+
+  private setTokenCookies(res: FastifyReply, { accessToken, refreshToken }: Record<'accessToken' | 'refreshToken', string>) {
+    res.setCookie('access_token', accessToken, {
+      sameSite: true,
+      httpOnly: true,
+      secure: true,
+      expires: dayjs().add(ACCESS_TOKEN_EXPIRES).toDate(),
+    });
+    res.setCookie('refresh_token', refreshToken, {
+      sameSite: true,
+      httpOnly: true,
+      secure: true,
+      expires: dayjs().add(REFRESH_TOKEN_EXPIRES).toDate(),
+    });
   }
 
   /**

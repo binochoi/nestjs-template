@@ -32,7 +32,7 @@ export class AuthService {
     if (user === undefined) {
       throw new BadRequestException('user is not exist');
     }
-    if (user?.secret.password && await bcrypt.compare(password || '', user?.secret.password)) {
+    if (user?.password && await bcrypt.compare(password || '', user?.password)) {
       throw new BadRequestException('user password is wrong');
     }
     this.logger.log('signin user', user);

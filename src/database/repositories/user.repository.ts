@@ -41,7 +41,18 @@ export class UserRepository {
         secret: true,
       },
       where: getWhere(searchValue),
-    });
+    })
+      .then((record) => {
+        if (!record) {
+          return undefined;
+        }
+        const { detail, secret, ...user } = record;
+        return {
+          ...detail,
+          ...secret,
+          ...user,
+        };
+      });
   }
 
   async insert<Params extends UserEntity | UserEntity[]>(params: Params) {
