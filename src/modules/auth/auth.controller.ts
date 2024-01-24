@@ -62,7 +62,7 @@ export class AuthController {
    * data couldn't transfer to callback page when social login
    * and session method (aka express-session) does not insure consistent
    * so as using cookie, it could be solved
-   * yeah, this is hack. but its working well
+   * well, this is hack. but its working well
    *
    * @warn
    * it should be use 127.0.0.1 instead of localhost because of chromium issue on dev
@@ -93,10 +93,9 @@ export class AuthController {
   @Get('naver')
   signInNaver() {}
 
-  @Get('callback')
-  authSocial(
-    @Req() req: FastifyRequest & { user: Profile },
-    @Res() res: FastifyReply,
+  private oauthCallback(
+    req: FastifyRequest & { user: Profile },
+    res: FastifyReply,
   ) {
     const { user, cookies } = req;
     const payloadJSON = cookies[OAUTH_PAYLOAD_COOKIE_NAME];
@@ -104,6 +103,20 @@ export class AuthController {
       user,
       ...JSON.parse(decodeURIComponent(payloadJSON!)),
     };
-    res.status(302).redirect(`${payload.redirectUrl}?payload=${encodeURIComponent(JSON.stringify(payload))}`);
+    res
+      .clearCookie(OAUTH_PAYLOAD_COOKIE_NAME)
+      .status(302)
+      .redirect(
+        `${payload.redirectUrl}?payload=${encodeURIComponent(JSON.stringify(payload))}`,
+      );
+  }
+
+  @GoogleGuard()
+  @Get('callback')
+  authSocial(
+    @Req() req: FastifyRequest & { user: Profile },
+    @Res() res: FastifyReply,
+  ) {
+    this.oauthCallback(req, res);
   }
 }
