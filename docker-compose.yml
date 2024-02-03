@@ -13,8 +13,8 @@ services:
       - "5432:5432"
     env_file:
       - ./.env
-    # volumes:
-    #   - .cache/.postgresql:/var/lib/postgresql
+    volumes:
+      - .cache/.postgresql:/var/lib/postgresql
     networks:
       - app-net
   nestjs:
