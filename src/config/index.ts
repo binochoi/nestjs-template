@@ -7,29 +7,29 @@ export class Config {
   public readonly appName = 'nestjs-boilerplate';
 
   @IsString()
-  public readonly host: string = '0.0.0.0';
+  public readonly HOST: string = '0.0.0.0';
 
   @IsInt()
   @Transform(({ value }) => global.parseInt(value))
-  public readonly port: number = 8080;
+  public readonly PORT: number = 8080;
 
   @IsString()
-  public readonly env: 'dev' | 'prod' = 'prod';
+  public readonly ENV: 'dev' | 'prod' = 'prod';
 
   @IsBoolean()
   public get isDev() {
-    return this.env === 'dev';
+    return this.ENV === 'dev';
   }
 
   @IsBoolean()
   public get isProd() {
-    return this.env === 'prod';
+    return this.ENV === 'prod';
   }
 
   @IsString()
-  public readonly token_secret: string;
+  public readonly TOKEN_SECRET: string;
 
   public get serverHost() {
-    return this.isDev ? `http://127.0.0.1:${this.port}` : process.env.SERVER_HOST;
+    return this.isDev ? `http://127.0.0.1:${this.PORT}` : process.env.SERVER_HOST;
   }
 }
