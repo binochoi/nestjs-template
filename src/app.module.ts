@@ -15,10 +15,7 @@ import { RolesGuard } from './guards/role.guard';
   imports: [
     TypedConfigModule.forRoot({
       schema: Config,
-      load: process.env.ENV === 'dev'
-        ? dotenvLoader({
-          keyTransformer: (key: string) => key.toLowerCase(),
-        }) : [],
+      load: dotenvLoader(),
     }),
     SessionModule,
     AuthModule,
