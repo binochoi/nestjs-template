@@ -93,7 +93,7 @@ importers:
         specifier: ^4.24.3
         version: 4.24.3
       nanoid:
-        specifier: ^5.0.0
+        specifier: ^5.0.4
         version: 5.0.4
       nest-typed-config:
         specifier: ^2.7.0
