@@ -24,6 +24,7 @@
   "dependencies": {
     "@binochoi/eslint-config-typescript": "^0.0.25",
     "@binochoi/nestjs-mapped-types": "^0.0.5",
+    "@esbuild/linux-arm64": "^0.21.5",
     "@fastify/compress": "^7.0.0",
     "@fastify/cookie": "^9.1.0",
     "@fastify/cors": "^9.0.0",
@@ -103,6 +104,11 @@
     "tsx": "^4.0.0",
     "type-fest": "^4.9.0",
     "typescript": "^5.2.2"
+  },
+  "pnpm": {
+    "overrides": {
+      "esbuild": "0.21.5"
+    }
   },
   "jest": {
     "moduleFileExtensions": [
